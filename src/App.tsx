@@ -1,11 +1,23 @@
 import React from 'react'
+import Navbar from './components/Navbar';
+import { HomePage } from './pages/HomePage';
+import { Routes, Route } from "react-router-dom";
+import { Rules } from './pages/Rules';
+import { NotFound } from "./pages/NotFound"
+import { ShowQuestions } from './pages/ShowQuestions';
+import { FinalScore } from './pages/FinalScore';
 
-const App: React.FC = () => {
+export default function App(){
   return   <div className="App">
-      <input className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal m-10" type="email" placeholder="jane@example.com" />
+    <Navbar />
+    <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/rules/:categoryName" element={ <Rules /> } ></Route>
+        <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/:categoryName" element={<ShowQuestions />}></Route>
+        <Route path="/:categoryName/finalscore" element={<FinalScore />}></Route>
+      </Routes>
     </div>
 
 }
 
-
-export default App;
