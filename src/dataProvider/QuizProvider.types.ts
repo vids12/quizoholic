@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react"
+import React, {  ReactNode } from "react"
+import { Answer } from "../data/quiz.types"
 
 export type State ={
     score: number
@@ -6,7 +7,9 @@ export type State ={
 
 export type ContextType = {
     state: State,
-    dispatch: React.Dispatch<any>
+    dispatch: React.Dispatch<any>,
+    userAnswers: UserAnswer[],
+    setUserAnswer: React.Dispatch<React.SetStateAction<UserAnswer[]>>
 }
 
 export type ProviderProp = {
@@ -24,3 +27,10 @@ export type Action =
     | {
         type: "NIL_SCORE"
     }
+
+
+
+export type UserAnswer = {
+    Qno: number,
+    selectedAnswer: Answer
+}

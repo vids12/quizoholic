@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 export function ShowQuestions() {
   const { categoryName } = useParams();
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
-  // const [ ans,setAns ] = useState(false);
   const [qno, setQno] = useState<number>(1);
   const question = findQuestion(qno,categoryName);
-  const { dispatch: scoreDispatch  } = useQuiz();
+  const { dispatch: scoreDispatch,setUserAnswer,userAnswers  } = useQuiz();
 
   return (
     <div className="App">
@@ -32,6 +31,7 @@ export function ShowQuestions() {
               onClick={() => {
                 obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: question?.points }) : scoreDispatch({type: "DECREEMENT_SCORE",payload: question?.negativePoints });
                 setShowAnswer(true);
+                setUserAnswer(userAnswers.concat({ Qno:qno, selectedAnswer: obj}))
               }}
             >
               {obj.value}
