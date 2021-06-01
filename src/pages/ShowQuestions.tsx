@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export function ShowQuestions() {
   const { categoryName } = useParams();
-  const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [showAnswer, setShowAnswer] = useState<string | number>("");
   const [qno, setQno] = useState<number>(1);
   const question = findQuestion(qno,categoryName);
   const { dispatch: scoreDispatch,setUserAnswer,userAnswers  } = useQuiz();
@@ -22,15 +22,17 @@ export function ShowQuestions() {
           return (
             <li 
               className={
-                    showAnswer
+                  showAnswer === obj.value
                   ? obj.isRight
                     ? "bg-green-600 text-white m-4 p-4 rounded-lg"
                     : "bg-red-600 text-white m-4 p-4 rounded-lg"
-                  : "border-gray-500 text-black m-4 p-4 rounded-lg"
+                  : showAnswer && obj.isRight
+                    ? "bg-green-600 text-white m-4 p-4 rounded-lg"
+                    : "border-gray-500 text-black m-4 p-4 rounded-lg cursor-pointer"
               }
               onClick={() => {
                 obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: question?.points }) : scoreDispatch({type: "DECREEMENT_SCORE",payload: question?.negativePoints });
-                setShowAnswer(true);
+                setShowAnswer(obj.value);
                 setUserAnswer(userAnswers.concat({ Qno:qno, selectedAnswer: obj}))
               }}
             >
@@ -39,18 +41,17 @@ export function ShowQuestions() {
           );
         })}
       </ul>
-      {qno === 5 ||
-        (qno < 5 && (
+      {qno < 5 && (
             <button
               onClick={() => {
                 setQno((prev) => prev + 1);
-                setShowAnswer(false);
+                setShowAnswer("");
               }}
               className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-4"
             >
               Next
             </button>
-        ))}
+        )}
       {qno === 5 && (
         <Link to={`/${categoryName}/finalscore`}><button
         className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-2"
