@@ -1,14 +1,8 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { questionBank } from "../data/quizIndia";
 
 export function Rules(){
-    const { categoryName } = useParams();
-    function findCategory(){
-        return questionBank.category.find(obj=>obj.categoryName===categoryName)
-    }
-    const list = findCategory();
-    console.log(list);
+    const { categoryName } = useParams()
     return <div className="shadow-2xl h-120 w-3/4 md:h-60 md:w-2/4  border-grey-200 relative md:-bottom-40 md:inset-x-56 border top-40 left-10">
         <h4 className="text-center text-indigo-600 text-4xl m-2 tracking-widest">Rules</h4>
         <ul className="list-disc list-inside m-2">
