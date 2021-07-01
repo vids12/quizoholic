@@ -1,5 +1,4 @@
 import { Quiz } from "./quiz.types";
-
 export const questionBank: Quiz = {
   quizName: "How much you know about India?",
   category: [
@@ -763,3 +762,4 @@ export const questionBank: Quiz = {
     }    
   ]
 };
+
