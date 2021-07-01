@@ -45,8 +45,7 @@ export function ShowQuestions() {
 
 
   return (
-    <div className="App">
-      {console.log(status)}
+    <div>
       {status === userStatus.ERROR && <p>{errorMessage}</p>}
       {status === userStatus.LOADING && <Spinner />}
       {status === userStatus.SUCCESS && <div><h4 className="m-4 font-extrabold">
