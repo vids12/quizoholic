@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useQuiz } from "../dataProvider/QuizProvider";
+import { useQuiz } from "../dataProvider/context/Quiz/QuizProvider";
 
 export function FinalScore(){
     const { categoryName } = useParams();

@@ -1,5 +1,5 @@
-import { State } from "./QuizProvider.types";
-import { Action } from "./QuizProvider.types";
+import { State } from "../context/Quiz/QuizProvider.types";
+import { Action } from "../context/Quiz/QuizProvider.types";
 
 export function quizReducer(state: State,action: Action){
     switch(action.type){

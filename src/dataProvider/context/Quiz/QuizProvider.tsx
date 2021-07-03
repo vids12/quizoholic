@@ -1,6 +1,6 @@
 import { useContext,createContext, useReducer, useState } from "react";
 import { ContextType, ProviderProp, State, UserAnswer } from "./QuizProvider.types";
-import { quizReducer } from "./quizReducer";
+import { quizReducer } from "../../reducer/quizReducer";
 
 const initialState: State = {
     score: 0

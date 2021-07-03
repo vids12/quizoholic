@@ -1,5 +1,5 @@
 import React, {  ReactNode } from "react"
-import { Answer } from "../data/quiz.types"
+import { Answer } from "../../../data/quiz.types"
 
 export type State ={
     score: number
