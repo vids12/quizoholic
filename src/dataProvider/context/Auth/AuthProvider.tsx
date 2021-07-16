@@ -30,7 +30,6 @@ export function AuthProvider({children}: ProviderProp){
         });
         return unsubscribe;
     },[]); 
-    console.log("useEfect k bahar",currentUser);
     return <AuthContext.Provider value={{currentUser,loginStatus}}>
         {children}
     </AuthContext.Provider>
