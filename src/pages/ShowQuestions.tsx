@@ -15,7 +15,7 @@ export function ShowQuestions() {
   const [showAnswer, setShowAnswer] = useState<string | number>("");
   const [qno, setQno] = useState<number>(1);
   const [quizData,setQuizData] = useState<Question>();
-  const { dispatch: scoreDispatch,setUserAnswer,userAnswers  } = useQuiz();
+  const { dispatch: scoreDispatch } = useQuiz();
   const [status, setStatus] = useState<userStatus>(userStatus.LOADING);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { currentUser } = useAuth();
@@ -78,9 +78,8 @@ export function ShowQuestions() {
                     : "border-gray-500 text-black m-4 p-4 rounded-lg cursor-pointer"
               }
               onClick={() => {
-                obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: quizData?.points }) : scoreDispatch({type: "DECREEMENT_SCORE",payload: quizData?.negativePoints });
+                obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: { points: quizData?.points,answer:{ Qno:qno, selectedAnswer: obj} }}) : scoreDispatch({type: "DECREEMENT_SCORE",payload: { points: quizData?.negativePoints,answer:{ Qno:qno, selectedAnswer: obj} }});
                 setShowAnswer(obj.value);
-                setUserAnswer(userAnswers.concat({ Qno:qno, selectedAnswer: obj}))
               }}
             >
               {obj.value}

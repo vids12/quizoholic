@@ -2,14 +2,13 @@ import React, {  ReactNode } from "react"
 import { Answer } from "../../../data/quiz.types"
 
 export type State ={
-    score: number
+    score: number,
+    userAnswers: UserAnswer[]
 }
 
 export type ContextType = {
     state: State,
-    dispatch: React.Dispatch<any>,
-    userAnswers: UserAnswer[],
-    setUserAnswer: React.Dispatch<React.SetStateAction<UserAnswer[]>>
+    dispatch: React.Dispatch<any>
 }
 
 export type ProviderProp = {
@@ -18,11 +17,17 @@ export type ProviderProp = {
 export type Action = 
     | {
         type: "INCREEMENT_SCORE",
-        payload: number
+        payload: {
+            points: number,
+            answer: UserAnswer
+        }
     }
     | {
         type: "DECREEMENT_SCORE",
-        payload: number
+        payload: {
+            points: number,
+            answer: UserAnswer
+        }
     }
     | {
         type: "NIL_SCORE"

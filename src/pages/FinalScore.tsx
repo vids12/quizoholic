@@ -7,11 +7,7 @@ import { userData } from "../firebase/firebase";
 export function FinalScore(){
     const { categoryName } = useParams();
     const { currentUser } = useAuth();
-    const { state,dispatch:scoreDispatch,setUserAnswer } = useQuiz();
-    function buttonHandler(){
-        scoreDispatch({type: "NIL_SCORE"});
-        setUserAnswer([]);
-    }
+    const { state, dispatch:scoreDispatch } = useQuiz();
     useEffect(()=>{
         (async function () {
             try{
@@ -32,10 +28,10 @@ export function FinalScore(){
         <h1 className="text-6xl mb-4">{state.score}/25</h1>
         <div>
             <Link to={`/${categoryName}`} className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-4">
-                <button onClick={() => buttonHandler()}>Play Again</button>
+                <button onClick={() => scoreDispatch({type: "NIL_SCORE"})}>Play Again</button>
             </Link>
             <Link to="/" className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-4"> 
-                <button onClick={() => buttonHandler()}>Go to Home</button>
+                <button onClick={() => scoreDispatch({type: "NIL_SCORE"})}>Go to Home</button>
             </Link>
         </div>
 

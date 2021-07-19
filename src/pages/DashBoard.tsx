@@ -4,12 +4,12 @@ import { findQuestion } from "../utils/findQuestion";
 
 export function DashBoard(){
     const { categoryName } = useParams();
-    const { userAnswers } = useQuiz();  
+    const { state } = useQuiz();  
     return <div className="h-screen">
         <div className="text-center bg-gradient-to-r from-indigo-400 to-purple-500">
             <h1 className="font-bold text-3xl text-white p-4">Your Answers</h1>
             <ul>
-                {userAnswers?.map((obj,index)=>{
+                {state.userAnswers?.map((obj,index)=>{
                     return <li className="border-gray-500 border-0 m-4 bg-gray-200 p-2 rounded-lg bg-opacity-50 shadow-sm" key={index}
                     >
                         <p className="font-bold"><span>{obj.Qno}. </span>{findQuestion(obj.Qno,categoryName)?.text}</p>
@@ -18,6 +18,7 @@ export function DashBoard(){
                     </li>
                 })}
             </ul>
+            
         </div>
     </div>
 }

@@ -4,11 +4,11 @@ import { Action } from "../context/Quiz/QuizProvider.types";
 export function quizReducer(state: State,action: Action){
     switch(action.type){
         case "INCREEMENT_SCORE":
-            return {...state,score: state.score + action.payload};
+            return {score: state.score + action.payload.points, userAnswers: state.userAnswers.concat(action.payload.answer)};
         case "DECREEMENT_SCORE": 
-            return {...state,score: state.score - action.payload};
+            return {score: state.score - action.payload.points, userAnswers: state.userAnswers.concat(action.payload.answer)};
         case "NIL_SCORE":
-            return {...state,score: 0};
+            return {score: 0,userAnswers: []};
         default:
             return state;
     }
