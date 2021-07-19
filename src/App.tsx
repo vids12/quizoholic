@@ -17,7 +17,7 @@ export default function App(){
     <Routes>
         <PrivateRoute path="/" element={<HomePage />}></PrivateRoute>
         <PrivateRoute path="/rules/:categoryName" element={ <Rules /> } ></PrivateRoute>
-        <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/ok" element={<NotFound />}></Route>
         <Route path="/:categoryName" element={<ShowQuestions />}></Route>
         <Route path="/:categoryName/finalscore" element={<FinalScore />}></Route>
         <Route path="/:categoryName/dashboard" element={<DashBoard />}></Route>

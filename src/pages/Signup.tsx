@@ -14,7 +14,7 @@ export function Signup() {
     const [ loading,setLoading ] = useState<userStatus>(userStatus.IDLE);
     const navigate = useNavigate();
 
-    async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>){
+    async function handleSubmit(){
         if(passwordRef.current?.value !== confirmPasswordRef.current?.value){
             setLoading(userStatus.ERROR);
             return setErrorMessage("Passwords do not match")
@@ -23,7 +23,6 @@ export function Signup() {
             setErrorMessage("");
             setLoading(userStatus.LOADING);
             await signup(emailRef.current!.value,passwordRef.current!.value,nameRef.current!.value);
-            // emailRef.current?.value =null;
             setLoading(userStatus.SUCCESS);
         }catch(err){
             setLoading(userStatus.ERROR);
@@ -57,7 +56,7 @@ export function Signup() {
                         <span className="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Confirm Password</span> <input type="password" ref={confirmPasswordRef} className="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-indigo-600" />
                     </div>
                     <div className="mt-4"> 
-                        <button className="h-12 w-full bg-indigo-600 text-white rounded hover:bg-indigo-700" onClick={(event)=> handleSubmit(event)} disabled={loading === userStatus.LOADING}>Sign Up</button>
+                        <button className="h-12 w-full bg-indigo-600 text-white rounded hover:bg-indigo-700" onClick={()=> handleSubmit()} disabled={loading === userStatus.LOADING}>Sign Up</button>
                     </div>
                     <div className="mt-4 text-center">
                         Already have an account?  <Link to="/login" className="text-indigo-500 underline">Log In</Link>

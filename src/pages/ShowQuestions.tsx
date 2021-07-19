@@ -3,10 +3,12 @@ import { useParams } from "react-router";
 import { useQuiz } from "../dataProvider/context/Quiz/QuizProvider";
 import { Link } from "react-router-dom";
 import firebase from "../firebase/firebase";
-import "firebase/firestore";
 import { Question } from "../data/quiz.types";
 import { Spinner } from "../components/Spinner";
 import { userStatus } from "../constants/userStatus";
+import { useAuth } from "../dataProvider/context/Auth/AuthProvider";
+import { userData } from "../firebase/firebase";
+import "firebase/firestore";
 
 export function ShowQuestions() {
   const { categoryName } = useParams();
@@ -16,6 +18,8 @@ export function ShowQuestions() {
   const { dispatch: scoreDispatch,setUserAnswer,userAnswers  } = useQuiz();
   const [status, setStatus] = useState<userStatus>(userStatus.LOADING);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const { currentUser } = useAuth();
+  const increment = firebase.firestore.FieldValue.increment(1);
 
   useEffect(()=>{
     (async function (){
@@ -32,7 +36,7 @@ export function ShowQuestions() {
             setStatus(userStatus.LOADING);
             const categoryData = doc.data().category.find((obj: { categoryName: string; }) => obj.categoryName === categoryName);
             setStatus(userStatus.SUCCESS);
-            return setQuizData(categoryData.question.find((obj: {questionNo: Number; })=> obj.questionNo === qno));
+            setQuizData(categoryData.question.find((obj: {questionNo: Number; })=> obj.questionNo === qno));
           }
         )
       }catch(error){
@@ -42,8 +46,15 @@ export function ShowQuestions() {
       }
     })();
   },[quizData,categoryName,qno]);
-
-
+  async function attemptHandler() {
+    try{
+          
+          const response = await userData.doc(currentUser?.uid);
+          return response.update(`${categoryName}.attempted`,increment);
+    }catch(error){
+      console.error(error.message);
+    }         
+  }
   return (
     <div>
       {status === userStatus.ERROR && <p>{errorMessage}</p>}
@@ -90,7 +101,7 @@ export function ShowQuestions() {
         )}
       {qno === 5 && (
         <Link to={`/${categoryName}/finalscore`}><button
-        className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-2"
+        className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-2" onClick={() => attemptHandler()}
       >
         Final Score
       </button></Link>
