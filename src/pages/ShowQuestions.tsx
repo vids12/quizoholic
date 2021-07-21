@@ -22,29 +22,38 @@ export function ShowQuestions() {
   const increment = firebase.firestore.FieldValue.increment(1);
 
   useEffect(()=>{
+    let isCanceled = false;
     (async function (){
       try{    
-        const firebaseData = firebase.firestore().collection('quizoholic-quiz-data');
-        const snapshot  = await firebaseData.get();
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        }
-        snapshot.forEach(( doc : any)=>
-          {
-            setErrorMessage('');
-            setStatus(userStatus.LOADING);
-            const categoryData = doc.data().category.find((obj: { categoryName: string; }) => obj.categoryName === categoryName);
-            setStatus(userStatus.SUCCESS);
-            setQuizData(categoryData.question.find((obj: {questionNo: Number; })=> obj.questionNo === qno));
+        if(!isCanceled){
+          const firebaseData = firebase.firestore().collection('quizoholic-quiz-data');
+          const snapshot  = await firebaseData.get();
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
           }
-        )
+          snapshot.forEach(( doc : any)=>
+            {
+              setErrorMessage('');
+              setStatus(userStatus.LOADING);
+              const categoryData = doc.data().category.find((obj: { categoryName: string; }) => obj.categoryName === categoryName);
+              setStatus(userStatus.SUCCESS);
+              setQuizData(categoryData.question.find((obj: {questionNo: Number; })=> obj.questionNo === qno));
+            }
+          )
+        }
       }catch(error){
-        setStatus(userStatus.ERROR)
-        setErrorMessage(error);
-        console.error(error.message);
+        if(!isCanceled){
+          setStatus(userStatus.ERROR)
+          setErrorMessage(error);
+          console.error(error.message);
+        }
       }
+      
     })();
+    return () => {
+      isCanceled = true;
+    }
   },[quizData,categoryName,qno]);
   async function attemptHandler() {
     try{
@@ -81,6 +90,7 @@ export function ShowQuestions() {
                 obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: { points: quizData?.points,answer:{ Qno:qno, selectedAnswer: obj} }}) : scoreDispatch({type: "DECREEMENT_SCORE",payload: { points: quizData?.negativePoints,answer:{ Qno:qno, selectedAnswer: obj} }});
                 setShowAnswer(obj.value);
               }}
+              // disabled={!!showAnswer}
             >
               {obj.value}
             </li>

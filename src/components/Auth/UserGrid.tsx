@@ -7,21 +7,29 @@ export function USerGrid(){
     const { currentUser } = useAuth();
     const [showData,setShowData] = useState<UserData>();
     useEffect(()=>{
+        let isCanceled = false;
         (async function () {
             try{
-                const response =await userData.doc(currentUser?.uid).get();
-                setShowData({
-                    food: response.get("food"),
-                    heritage: response.get("heritage"),
-                    history: response.get("history"),
-                    literature: response.get("literature"),
-                    dance: response.get("dance"),
-                    geography: response.get("geography"),
-                });
+                if(!isCanceled){
+                    const response =await userData.doc(currentUser?.uid).get();
+                    setShowData({
+                        food: response.get("food"),
+                        heritage: response.get("heritage"),
+                        history: response.get("history"),
+                        literature: response.get("literature"),
+                        dance: response.get("dance"),
+                        geography: response.get("geography"),
+                    });
+                }
             }catch(error){
+                if(!isCanceled){
                 console.error(error.message);
-            }         
+                }
+            }      
         })();
+        return () => {
+            isCanceled = true;
+        }
     })
     return <div className="grid grid-cols-3 grid-rows-6 m-6 bg-indigo-900">
         <div className="font-bold rounded p-2 uppercase text-center m-1 bg-indigo-700 text-gray-100" >Categories</div>
