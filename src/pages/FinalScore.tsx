@@ -21,7 +21,7 @@ export function FinalScore(){
                 console.error(error);
                 
             }
-        })()
+        })();
     })
     return <div className="text-center">
         <h2 className="m-10 font-extrabold text-4xl text-center">Your final score:</h2>
