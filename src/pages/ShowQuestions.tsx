@@ -90,7 +90,6 @@ export function ShowQuestions() {
                 obj.isRight ? scoreDispatch({type: "INCREEMENT_SCORE",payload: { points: quizData?.points,answer:{ Qno:qno, selectedAnswer: obj} }}) : scoreDispatch({type: "DECREEMENT_SCORE",payload: { points: quizData?.negativePoints,answer:{ Qno:qno, selectedAnswer: obj} }});
                 setShowAnswer(obj.value);
               }}
-              // disabled={!!showAnswer}
             >
               {obj.value}
             </li>
