@@ -4,6 +4,7 @@ import { userStatus } from "../constants/userStatus";
 import { login } from "../utils/login";
 import { Alert } from "../components/Alert";
 import { Spinner } from "../components/Spinner";
+import { useAuth } from "../dataProvider/context/Auth/AuthProvider";
 
 export function Login() {
     const emailRef = useRef<HTMLInputElement>(null);
@@ -11,6 +12,7 @@ export function Login() {
     const [ errorMessage,setErrorMessage ] = useState<string>("");
     const [ loading,setLoading ] = useState<userStatus>(userStatus.IDLE);
     const navigate = useNavigate();
+    const { setLoginStatus } =  useAuth();
 
     async function handleSubmit(){
         try{
@@ -18,6 +20,7 @@ export function Login() {
             setLoading(userStatus.LOADING);
             await login(emailRef.current!.value,passwordRef.current!.value);
             setLoading(userStatus.SUCCESS);
+            setLoginStatus(true);
             navigate("/");
         }catch(error){
             setLoading(userStatus.ERROR);
