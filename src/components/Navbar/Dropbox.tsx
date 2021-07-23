@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../dataProvider/context/Auth/AuthProvider";
 
 export function Dropbox() {
-    const { currentUser,loginStatus } = useAuth();
+    const { currentUser,loginStatus,setLoginStatus } = useAuth();
     async function logoutHandler(){
         try{
           await logout();
           localStorage.removeItem("userLogin");
+          setLoginStatus(false);
         }catch(error){
           console.error(error);
           
