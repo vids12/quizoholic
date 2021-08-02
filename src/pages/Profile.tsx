@@ -1,4 +1,4 @@
-import { UserGrid } from '../components/Auth/UserGrid'
+import { UserGrid } from '../components/index'
 import { useAuth } from '../dataProvider/context/Auth/AuthProvider'
 
 export function Profile() {

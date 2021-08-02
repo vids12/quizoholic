@@ -1,5 +1,4 @@
-import { Header } from '../components/HomePage/Header'
-import { QuizOptions } from '../components/HomePage/QuizOptions'
+import { Header, QuizOptions } from '../components/index'
 
 export function HomePage() {
   return (

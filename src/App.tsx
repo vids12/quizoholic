@@ -1,14 +1,16 @@
 import { Navbar, PrivateRoute } from './components/index'
-import { HomePage } from './pages/HomePage'
+import {
+  HomePage,
+  Rules,
+  NotFound,
+  ShowQuestions,
+  FinalScore,
+  DashBoard,
+  Signup,
+  Login,
+  Profile,
+} from './pages/index'
 import { Routes, Route } from 'react-router-dom'
-import { Rules } from './pages/Rules'
-import { NotFound } from './pages/NotFound'
-import { ShowQuestions } from './pages/ShowQuestions'
-import { FinalScore } from './pages/FinalScore'
-import { DashBoard } from './pages/DashBoard'
-import { Signup } from './pages/Signup'
-import { Login } from './pages/Login'
-import { Profile } from './pages/Profile'
 
 export default function App() {
   return (
