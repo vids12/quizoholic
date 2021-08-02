@@ -104,7 +104,7 @@ export function ShowQuestions() {
                 setQno((prev) => prev + 1)
                 setShowAnswer('')
               }}
-              className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-4"
+              className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-4 focus:outline-none"
             >
               Next
             </button>
@@ -112,7 +112,7 @@ export function ShowQuestions() {
           {qno === 5 && (
             <Link to={`/${categoryName}/finalscore`}>
               <button
-                className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-2"
+                className="bg-indigo-500 px-6 py-1 text-white text-center font-extrabold rounded-full cursor-pointer m-2 focus:outline-none"
                 onClick={() => attemptHandler()}
               >
                 Final Score
