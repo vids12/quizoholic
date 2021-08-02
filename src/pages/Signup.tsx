@@ -72,6 +72,7 @@ export function Signup() {
               <input
                 type="password"
                 ref={passwordRef}
+                placeholder="at least 6 characters"
                 className="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-indigo-600"
               />
             </div>
