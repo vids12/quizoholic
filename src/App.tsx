@@ -1,4 +1,4 @@
-import { Navbar } from './components/index'
+import { Navbar, PrivateRoute } from './components/index'
 import { HomePage } from './pages/HomePage'
 import { Routes, Route } from 'react-router-dom'
 import { Rules } from './pages/Rules'
@@ -9,7 +9,6 @@ import { DashBoard } from './pages/DashBoard'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
 import { Profile } from './pages/Profile'
-import { PrivateRoute } from './components/Auth/PrivateRoute'
 
 export default function App() {
   return (
