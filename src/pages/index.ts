@@ -1,0 +1,9 @@
+export { FinalScore } from './FinalScore';
+export { HomePage } from './HomePage'; 
+export { DashBoard } from './DashBoard';
+export { Login } from './Login';
+export { NotFound } from './NotFound';
+export { Profile } from './Profile';
+export { Rules } from './Rules';
+export { ShowQuestions }  from './ShowQuestions';
+export { Signup } from './Signup';
